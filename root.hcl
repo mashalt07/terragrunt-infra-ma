@@ -8,9 +8,11 @@ locals {
   region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
 
   # Extract the variables we need for easy access
-  account_name = local.account_vars.locals.account_name
   account_id   = local.account_vars.locals.aws_account_id
   aws_region   = local.region_vars.locals.aws_region
+
+  # State bucket region will remain the same. 
+  state_aws_region = "eu-west-2"
 }
 
 # Generate an AWS provider block
@@ -32,9 +34,9 @@ remote_state {
   backend = "s3"
   config = {
     encrypt        = true
-    bucket         = "terraform-state-bucket-ma"
+    bucket         = get_env("TF_STATE_BUCKET")
     key            = "${path_relative_to_include()}/terraform.tfstate"
-    region         = local.aws_region
+    region         = local.state_aws_region
   }
   generate = {
     path      = "backend.tf"
