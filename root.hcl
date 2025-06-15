@@ -13,6 +13,9 @@ locals {
 
   # State bucket region will remain the same. 
   state_aws_region = "eu-west-2"
+
+  # Role name to be used for multi-account deployment. Assumes use of AWS Organizations for account setup.
+  role_name = "OrganizationAccountAccessRole"
 }
 
 # Generate an AWS provider block
@@ -22,6 +25,10 @@ generate "provider" {
   contents  = <<EOF
 provider "aws" {
   region = "${local.aws_region}"
+
+  assume_role {
+    role_arn = "arn:aws:iam::${local.account_id}:role/${local.role_name}"
+  }
 
   # Only these AWS Account IDs may be operated on by this template
   allowed_account_ids = ["${local.account_id}"]
