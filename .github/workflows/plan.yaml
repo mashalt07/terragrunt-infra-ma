@@ -16,9 +16,8 @@ env:
     TG_VERSION: "0.81.4"
     WORKING_DIR: "."
 
-permissions: 
-  contents: write
-  pull-requests: write
+permissions:
+    pull-requests: write
 
 jobs:
     terragrunt_plan:
@@ -36,13 +35,13 @@ jobs:
         
         - name: Run a terragrunt plan 
           uses: gruntwork-io/terragrunt-action@v2
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
             tf_version: ${{ env.TF_VERSION }}
             tg_version: ${{ env.TG_VERSION }}
             tg_dir: ${{ env.WORKING_DIR }}
             tg_command: "run plan --all"
-            tg_comment: true
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            tg_comment: 1
 
        
