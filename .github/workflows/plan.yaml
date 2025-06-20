@@ -13,6 +13,8 @@ env:
     TEST_ACCOUNT_EMAIL: ${{ secrets.TEST_ACCOUNT_EMAIL }}
     AWS_REGION: "eu-west-1"
     TF_VERSION: "1.12.1"
+    TG_VERSION: "0.81.4"
+    WORKING_DIR: "."
 
 jobs:
     plan:
@@ -28,10 +30,12 @@ jobs:
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: ${{ env.AWS_REGION }}
         
-        - name: Setup terraform
-          uses: hashicorp/setup-terraform@v3
+        - name: Run a terragrunt plan 
+          uses: gruntwork-io/terragrunt-action@v2
           with:
-            terraform_version: ${{ env.TF_VERSION }}
-        
-        - name: Terraform version
-          run: terraform --version
+            tf_version: ${{ env.TF_VERSION }}
+            tg_version: ${{ env.TG_VERSION }}
+            tg_dir: ${{ env.WORKING_DIR }}
+            tg_command: "run plan --all"
+
+       
