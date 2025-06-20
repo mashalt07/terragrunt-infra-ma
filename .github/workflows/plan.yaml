@@ -17,6 +17,7 @@ env:
     WORKING_DIR: "."
 
 permissions:
+    contents: read
     pull-requests: write
 
 jobs:
