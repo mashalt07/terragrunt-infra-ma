@@ -14,18 +14,23 @@ locals {
   account_id   = local.account_vars.locals.aws_account_id
   is_management_account = try(local.account_vars.locals.is_management_account, false) # checks if the is_management_account is set in account.hcl to true for the management account, otherwise fallsback to false for member accounts.
   aws_region   = local.region_vars.locals.aws_region
+
+  # Role name to be used for multi-account deployment. Assumes use of AWS Organizations for multi-account setup.
+  role_name = "OrganizationAccountAccessRole"
   
+  # Generates a provider block for creating infrastructure in the management account.
   provider_management = <<EOF
-provider "aws" {
+  provider "aws" {
   region = "${local.aws_region}"
 
   # Only these AWS Account IDs may be operated on by this template
   allowed_account_ids = ["${local.account_id}"]
-}
-EOF
+  }
+  EOF
 
-provider_non_management = <<EOF
-provider "aws" {
+  # Generates a provider block for creating infrastructure in the member accounts.
+  provider_non_management = <<EOF
+  provider "aws" {
   region = "${local.aws_region}"
 
   assume_role {
@@ -33,15 +38,11 @@ provider "aws" {
   }
   # Only these AWS Account IDs may be operated on by this template
   allowed_account_ids = ["${local.account_id}"]
-}
-EOF
-
+  }
+  EOF
 
   # State bucket region will remain the same. 
   state_aws_region = "eu-west-2"
-
-  # Role name to be used for multi-account deployment. Assumes use of AWS Organizations for multi-account setup.
-  role_name = "OrganizationAccountAccessRole"
 }
 
 # Generate an AWS provider block
