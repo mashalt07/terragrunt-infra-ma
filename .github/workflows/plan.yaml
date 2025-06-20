@@ -1,0 +1,20 @@
+name: Terragrunt/Terraform plan
+
+on:
+    pull_request:
+        branches:
+            - main
+
+env:
+    TF_STATE_BUCKET: ${{ secrets.TF_STATE_BUCKET }}
+    MGMT_AWS_ACCOUNT_ID: ${{ secrets.MGMT_AWS_ACCOUNT_ID }}
+    PG_AWS_ACCOUNT_ID: ${{ secrets.PG_AWS_ACCOUNT_ID }}
+    TEST_AWS_ACCOUNT_ID: ${{ secrets.TEST_AWS_ACCOUNT_ID }}
+    TEST_ACCOUNT_EMAIL: ${{ secrets.TEST_ACCOUNT_EMAIL }}
+
+jobs:
+    plan:
+        runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
