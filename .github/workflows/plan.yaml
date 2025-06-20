@@ -37,7 +37,7 @@ jobs:
             tg_version: ${{ env.TG_VERSION }}
             tg_dir: ${{ env.WORKING_DIR }}
             tg_command: "run plan --all"
-            tg_comment: "1"
+            tg_comment: true
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
