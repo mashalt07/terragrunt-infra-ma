@@ -17,7 +17,7 @@ env:
     WORKING_DIR: "."
 
 jobs:
-    plan:
+    terragrunt_plan:
         runs-on: ubuntu-latest
 
         steps:
@@ -37,5 +37,6 @@ jobs:
             tg_version: ${{ env.TG_VERSION }}
             tg_dir: ${{ env.WORKING_DIR }}
             tg_command: "run plan --all"
+            tg_comment: true
 
        
