@@ -16,6 +16,9 @@ env:
     TG_VERSION: "0.81.4"
     WORKING_DIR: "."
 
+permissions: 
+  pull-requests: write
+
 jobs:
     terragrunt_plan:
         runs-on: ubuntu-latest
