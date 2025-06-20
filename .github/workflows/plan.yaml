@@ -11,10 +11,27 @@ env:
     PG_AWS_ACCOUNT_ID: ${{ secrets.PG_AWS_ACCOUNT_ID }}
     TEST_AWS_ACCOUNT_ID: ${{ secrets.TEST_AWS_ACCOUNT_ID }}
     TEST_ACCOUNT_EMAIL: ${{ secrets.TEST_ACCOUNT_EMAIL }}
+    AWS_REGION: "eu-west-1"
+    TF_VERSION: "1.12.1"
 
 jobs:
     plan:
         runs-on: ubuntu-latest
 
         steps:
-        - uses: actions/checkout@v4
+        - uses: actions/checkout@v4 
+
+        - name: Setup AWS credentials for the management account
+          uses: aws-actions/configure-aws-credentials@v1
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ${{ env.AWS_REGION }}
+        
+        - name: Setup terraform
+          uses: hashicorp/setup-terraform@v3
+          with:
+            terraform_version: ${{ env.TF_VERSION }}
+        
+        - name: Terraform version
+          run: terraform --version
