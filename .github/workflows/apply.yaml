@@ -1,10 +1,9 @@
-name: Terragrunt/Terraform plan
+name: Terragrunt/Terraform apply
 
 on:
-    pull_request:
+    push:
         branches:
             - main
-
 env:
     TF_STATE_BUCKET: ${{ secrets.TF_STATE_BUCKET }}
     MGMT_AWS_ACCOUNT_ID: ${{ secrets.MGMT_AWS_ACCOUNT_ID }}
@@ -16,12 +15,8 @@ env:
     TG_VERSION: "0.81.4"
     WORKING_DIR: "."
 
-permissions:
-    contents: read
-    pull-requests: write
-
 jobs:
-    terragrunt_plan:
+    terragrunt_apply:
         runs-on: ubuntu-latest
 
         steps:
@@ -33,32 +28,13 @@ jobs:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: ${{ env.AWS_REGION }}
-        
-        - name: Run terragrunt validate
-          uses: gruntwork-io/terragrunt-action@v2
-          with:
-            tf_version: ${{ env.TF_VERSION }}
-            tg_version: ${{ env.TG_VERSION }}
-            tg_dir: ${{ env.WORKING_DIR }}
-            tg_command: "hcl validate"
-    
-        - name: Run terragrunt format 
-          uses: gruntwork-io/terragrunt-action@v2
-          with:
-            tf_version: ${{ env.TF_VERSION }}
-            tg_version: ${{ env.TG_VERSION }}
-            tg_dir: ${{ env.WORKING_DIR }}
-            tg_command: "hcl fmt"
 
-        - name: Run terragrunt plan 
+        - name: Run terragrunt apply
           uses: gruntwork-io/terragrunt-action@v2
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
             tf_version: ${{ env.TF_VERSION }}
             tg_version: ${{ env.TG_VERSION }}
             tg_dir: ${{ env.WORKING_DIR }}
-            tg_command: "run plan --all"
-            tg_comment: 1
+            tg_command: "run apply --all"
 
        
