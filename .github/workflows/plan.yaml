@@ -34,7 +34,15 @@ jobs:
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: ${{ env.AWS_REGION }}
         
-        - name: Run a terragrunt format 
+        - name: Run terragrunt validate
+          uses: gruntwork-io/terragrunt-action@v2
+          with:
+            tf_version: ${{ env.TF_VERSION }}
+            tg_version: ${{ env.TG_VERSION }}
+            tg_dir: ${{ env.WORKING_DIR }}
+            tg_command: "hcl validate"
+    
+        - name: Run terragrunt format 
           uses: gruntwork-io/terragrunt-action@v2
           with:
             tf_version: ${{ env.TF_VERSION }}
@@ -42,7 +50,7 @@ jobs:
             tg_dir: ${{ env.WORKING_DIR }}
             tg_command: "hcl fmt"
 
-        - name: Run a terragrunt plan 
+        - name: Run terragrunt plan 
           uses: gruntwork-io/terragrunt-action@v2
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
