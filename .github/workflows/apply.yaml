@@ -3,7 +3,7 @@ name: Terragrunt/Terraform apply
 on:
     push:
         branches:
-            - main
+            - release-infra 
 env:
     TF_STATE_BUCKET: ${{ secrets.TF_STATE_BUCKET }}
     MGMT_AWS_ACCOUNT_ID: ${{ secrets.MGMT_AWS_ACCOUNT_ID }}
