@@ -4,41 +4,30 @@ This repository is a personal setup of my infrastructure on AWS using Terragrunt
 
 For more information on Terragrunt, check out the [official documentation](https://terragrunt.gruntwork.io/docs/getting-started/quick-start/).
 
-## Accounts Structure
+ ## Directory Layout
 
 The AWS accounts have been setup using AWS organizations. AWS organizations allow the central management and governance of multiple AWS accounts as a single unit, from the management account. 
 
 
 ```bash
-├── management-account
-│   ├── account.hcl
-│   ├── eu-west-1
-│   │   ├── region.hcl
-│   │   └── s3
-│   │       └── terragrunt.hcl
-│   └── global-infra
-│       └── organization-accounts
-│           └── terragrunt.hcl
-├── modules # Reusable terraform modules.
-│   ├── organization-account
-│   │   ├── main.tf
-│   │   └── variables.tf
-│   └── s3
-│       ├── outputs.tf
-│       ├── s3.tf
-│       └── variables.tf
+├── management-account 
+├── modules # Resuable terraform modules
 ├── playground-account
-│   ├── account.hcl
-│   └── eu-west-1
-│       ├── region.hcl
-│       └── s3
-│           └── terragrunt.hcl
 ├── README.md
 ├── root.hcl
 └── test-account
-    ├── account.hcl
-    └── eu-west-1
-        ├── region.hcl
-        └── s3
-            └── terragrunt.hcl
 ```
+
+Each account is split up into its own folder. A typical account directory structure looks as follows:
+
+```bash
+├── account.hcl
+├── eu-west-1
+│   ├── region.hcl
+│   └── s3
+│       └── terragrunt.hcl
+└── global-infra
+    └── organization-accounts
+        └── terragrunt.hcl
+```
+The `account.hcl` contains the common configurations for an account. Region specific resources are deployed in their own folders
