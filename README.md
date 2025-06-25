@@ -30,4 +30,3 @@ Each account is split up into its own folder. A typical account directory struct
     └── organization-accounts
         └── terragrunt.hcl
 ```
-The `account.hcl` contains the common configurations for an account. Region specific resources are deployed in their own folders
