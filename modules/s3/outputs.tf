@@ -1,4 +1,6 @@
 output "bucket_id" {
     description = "The id of the bucket"
-    value = aws_s3_bucket.this[*].id
+    value = {
+        for k, v in aws_s3_bucket.this : k => k.id
+    }
 }
