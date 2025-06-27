@@ -8,7 +8,7 @@ variable "tag_name" {
     default = "test"
 }
 
-variable "enviroment" {
+variable "environment" {
     description = "The environment."
     default = "test-env"
 }
