@@ -1,8 +1,10 @@
+# Resource to create multiple S3 buckets.
 resource "aws_s3_bucket" "this" {
-  bucket = var.bucket_name
+  for_each = var.bucket_name
+  bucket = each.key
 
   tags = {
     Name        = var.tag_name
-    Environment = var.enviroment
+    Environment = var.environment
   }
 }

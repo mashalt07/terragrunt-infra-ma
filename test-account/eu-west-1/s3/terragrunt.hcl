@@ -7,6 +7,6 @@ terraform {
 }
 
 inputs = {
-    bucket_name = "ma-test-bucket-terragrunt-test-account"
+    bucket_name = ["ma-test-bucket-terragrunt-test-account"]
     tag_name = "ma-test-bucket-tag-test-account"
 }

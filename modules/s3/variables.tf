@@ -1,5 +1,6 @@
 variable "bucket_name" {
-    description = "The name of the s3 bucket."
+    description = "The name of the s3 buckets to create."
+    type = set(string)
 }
 
 variable "tag_name" {
@@ -7,7 +8,7 @@ variable "tag_name" {
     default = "test"
 }
 
-variable "enviroment" {
+variable "environment" {
     description = "The environment."
     default = "test-env"
 }
