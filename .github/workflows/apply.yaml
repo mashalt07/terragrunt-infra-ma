@@ -35,6 +35,6 @@ jobs:
             tf_version: ${{ env.TF_VERSION }}
             tg_version: ${{ env.TG_VERSION }}
             tg_dir: ${{ env.WORKING_DIR }}
-            tg_command: "run -all apply"
+            tg_command: "run --all apply"
 
        
