@@ -8,5 +8,5 @@ terraform {
 
 inputs = {
     bucket_name = ["test-bucket-main-mo-altamash"]
-    tag_name = "test-bucket-main-ma"
+    tag_name = "test-bucket-tag-maltamash"
 }
