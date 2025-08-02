@@ -10,23 +10,9 @@ The AWS accounts have been setup using AWS organizations. AWS organizations allo
 
 
 ```bash
-├── management-account 
-├── modules # Resuable terraform modules
+├── management-account
+├── modules
 ├── playground-account
 ├── README.md
-├── root.hcl
-└── test-account
-```
-
-Each account is split up into its own folder. A typical account directory structure looks as follows:
-
-```bash
-├── account.hcl
-├── eu-west-1
-│   ├── region.hcl
-│   └── s3
-│       └── terragrunt.hcl
-└── global-infra
-    └── organization-accounts
-        └── terragrunt.hcl
+└── root.hcl
 ```
